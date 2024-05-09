@@ -3,7 +3,10 @@ name: Terraform New Relic Deployment
 on:
   workflow_dispatch:
   
- 
+env:
+   NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+   NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
+   
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -21,13 +24,13 @@ jobs:
  
       - name: Terraform Plan
         run: |
-          terraform plan -out=tfplan
+          terraform plan 
  
  
       - name: Terraform Apply
         run: |
-          terraform apply tfplan
-        env:
-          NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
-          NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
+          terraform apply -auto-approve
+        # env:
+        #   NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+        #   NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
           # Add any other secret variables needed for authentication
