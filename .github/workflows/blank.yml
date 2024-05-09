@@ -3,13 +3,13 @@ name: Terraform New Relic Deployment
 on:
   workflow_dispatch:
   
-env:
-   NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
-   NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
-   
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    env:
+      NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+      NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
+
  
     steps:
       - name: Checkout repository
