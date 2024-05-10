@@ -33,4 +33,4 @@ jobs:
         # env:
         #   NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
         #   NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
-          # Add any other secret variables needed for authentication
+        # Add any other secret variables needed for authentication
