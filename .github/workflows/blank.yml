@@ -30,7 +30,8 @@ jobs:
       - name: Terraform Apply 
         run: |
           # terraform apply -auto-approve -input=false
-           terraform apply -auto-approve -var "my_variable=$MY_VARIABLE"
+           terraform apply -auto-approve -variable.tf=terraform.tfvars
+
         # env:
         #   NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
         #   NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
