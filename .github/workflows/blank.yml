@@ -24,7 +24,7 @@ jobs:
  
       - name: Terraform Plan
         run: |
-          terraform plan -input=false 
+          #terraform plan -input=false 
            terraform plan -variable.tf="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -variable.tf="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
  
  
