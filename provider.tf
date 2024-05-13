@@ -8,6 +8,6 @@ terraform {
 }
 
 provider "newrelic" {
-  API_KEY    = var.NEW_RELIC_API_KEY
-  ACCOUNT_ID = var.NEW_RELIC_ACCOUNT_ID
+  NEW_RELIC_API_KEY    = var.NEW_RELIC_API_KEY
+  NEW_RELIC_ACCOUNT_ID = var.NEW_RELIC_ACCOUNT_ID
 }
