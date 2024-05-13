@@ -25,14 +25,14 @@ jobs:
       - name: Terraform Plan
         run: |
           #terraform plan -input=false 
-           terraform plan -variable.tf="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -variable.tf="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
+           terraform plan -var.tf="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var.tf="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
  
  
       - name: Terraform Apply 
         run: |
           # terraform apply -auto-approve -input=false
            # terraform apply -auto-approve -variable.tf=terraform.tfvars
-            terraform apply -variable.tf="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -variable.tf="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
+            terraform apply -var.tf="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var.tf="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
 
 
         # env:
