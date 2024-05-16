@@ -9,7 +9,7 @@ on:
         type: string   
   
 env:
- BUCKET: mybucket-anu
+ BUCKET: astoragebucketnu
  TFSTATE_FILE: anu.tfstate
  aws_region: ${{ github.event.inputs.region }}
  
