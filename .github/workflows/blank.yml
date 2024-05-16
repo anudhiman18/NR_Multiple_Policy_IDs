@@ -12,14 +12,12 @@ env:
  BUCKET: astoragebucketnu
  TFSTATE_FILE: anudhiman.tfstate
  aws_region: ${{ github.event.inputs.region }}
+ NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+ NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
  
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    env:
-      NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
-      NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
