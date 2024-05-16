@@ -10,7 +10,7 @@ on:
   
 env:
  BUCKET: astoragebucketnu
- TFSTATE_FILE: anu.tfstate
+ TFSTATE_FILE: anudhiman.tfstate
  aws_region: ${{ github.event.inputs.region }}
  
 jobs:
