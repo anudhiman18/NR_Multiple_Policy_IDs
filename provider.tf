@@ -9,5 +9,5 @@ terraform {
 
 provider "newrelic" {
   api_key    = var.NEW_RELIC_API_KEY
-  account_id = tonumber(var.NEW_RELIC_ACCOUNT_ID)
+  account_id = var.NEW_RELIC_ACCOUNT_ID
 }
