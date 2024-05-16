@@ -9,6 +9,7 @@ variable "NEW_RELIC_API_KEY" {
  
 variable "NEW_RELIC_ACCOUNT_ID" {
 description = "Account ID for New Relic"
+variable = number
 }
 
 # variable "policy_name" {
