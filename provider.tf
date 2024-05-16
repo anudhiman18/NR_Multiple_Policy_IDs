@@ -1,26 +1,8 @@
 terraform {
-
   required_providers {
-
-    aws = {
-
-      source  = "hashicorp/aws"
-
-      version = "~> 5.0"
-
+      aws = {
+      source = "hashicorp/aws"
     }
-
-  }
-
-}
-
-
-provider "aws" {
-    region = "ap-south-1"
-}
-
-terraform {
-  required_providers {
     newrelic = {
       source = "newrelic/newrelic"
       version = "3.34.1"
@@ -28,6 +10,9 @@ terraform {
   }
 }
 
+provider "aws" {
+    region = "ap-south-1"
+}
 
 provider "newrelic" {
 api_key    = var.NEW_RELIC_API_KEY
