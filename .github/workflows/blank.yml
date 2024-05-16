@@ -10,7 +10,6 @@ jobs:
       NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
       NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
 
- 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -18,28 +17,17 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
    
- 
       - name: Terraform Init
         run: terraform init
  
       - name: Terraform Plan
         run: |
-          #terraform plan -input=false 
-           terraform plan -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
- 
+            terraform plan -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
  
       - name: Terraform Apply 
         run: |
-          # terraform apply -auto-approve -input=false
-           # terraform apply -auto-approve -variable.tf=terraform.tfvars
             terraform apply -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
 
       - name: Destroy Terraform
         run: |
-         terraform destroy -auto-approve -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
-        # terraform destroy -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
-        # working-directory: Main/
-        # env:
-        #   NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
-        #   NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
-        # Add any other secret variables needed for authentication
+            terraform destroy -auto-approve -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
