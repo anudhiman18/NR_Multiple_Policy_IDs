@@ -35,7 +35,9 @@ jobs:
             terraform apply -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID= ${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
 
       - name: Destroy Terraform
-        run: terraform destroy -auto-approve 
+        run: |
+         terraform destroy -auto-approve -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
+        # terraform destroy -var="NEW_RELIC_API_KEY= ${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
         # working-directory: Main/
         # env:
         #   NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
