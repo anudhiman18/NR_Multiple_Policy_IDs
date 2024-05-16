@@ -1,0 +1,45 @@
+name: Terraform New Relic Deployment
+ 
+on:
+  workflow_dispatch:
+    inputs: 
+      region :
+        description: "Enter your region : "
+        required: true  
+        type: string   
+  
+env:
+ BUCKET: astoragebucketnu
+ TFSTATE_FILE: anudhiman.tfstate
+ aws_region: ${{ github.event.inputs.region }}
+ 
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+      NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
+      NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+ 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.aws_region }}
+   
+      - name: Terraform Init
+        run: |
+           terraform init -reconfigure -backend-config="bucket=${{ env.BUCKET }}" -backend-config="key=${{ env.TFSTATE_FILE }}" -backend-config="region=${{ env.aws_region }}" -input=false 
+
+      - name: Terraform Destroy
+        run : |
+            terraform destroy -auto-approve
+
