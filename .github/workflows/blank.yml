@@ -36,18 +36,16 @@ jobs:
           aws-region: ${{ env.aws_region }}
    
       - name: Terraform Init
-        run: terraform init -reconfigure -backend-config="bucket=${{ env.BUCKET }}" -backend-config="key=${{ env.TFSTATE_FILE }}" -backend-config="region=${{ env.aws_region }}"
+        run: |
+           terraform init -reconfigure -backend-config="bucket=${{ env.BUCKET }}" -backend-config="key=${{ env.TFSTATE_FILE }}" -backend-config="region=${{ env.aws_region }}" 
  
       - name: Terraform Plan
         run: |
-          #terraform plan -input=false 
            terraform plan -var='NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}' -var='NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}'
  
       - name: Terraform Apply 
         run: |
-          # terraform apply -auto-approve -input=false
-           # terraform apply -auto-approve -variable.tf=terraform.tfvars
-            terraform apply -auto-approve -var="NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}"
+            terraform apply -auto-approve -var="NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}" -input=false
 
 
 
