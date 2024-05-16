@@ -2,7 +2,7 @@
 terraform {
 
   backend "s3" {
-    bucket = "mybucket-anu"
+    bucket = "astoragebucketnu"
     key    = "anudhiman.tfstate"
     region = "us-east-1"
   }
