@@ -10,5 +10,5 @@ terraform {
 
 provider "newrelic" {
   api_key    = var.NEW_RELIC_API_KEY
-  account_id = data.github_actions_secret.NEW_RELIC_ACCOUNT_ID.value
+  account_id = 4422835
 }
