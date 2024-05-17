@@ -2,8 +2,9 @@ name: Terraform New Relic Deployment
  
 on:
   workflow_dispatch:
-    inputs: 
-      region :
+    inputs:
+     variable:
+    region:
         description: "Enter your region : "
         required: true  
         type: string   
@@ -14,6 +15,7 @@ env:
  aws_region: ${{ github.event.inputs.region }}
  NEW_RELIC_API_KEY: ${{ secrets.NEW_RELIC_API_KEY }}
  NEW_RELIC_ACCOUNT_ID: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
+
  
 jobs:
   terraform:
@@ -42,12 +44,12 @@ jobs:
            terraform plan -var='NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}' -var='NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}'
  
       - name: Terraform Apply 
-        run: |
-            terraform apply -auto-approve -var="NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}" 
+        if: github.event.inputs.variable == 'apply'
+        run : terraform apply -auto-approve -var="NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}" 
       
       - name: Terraform Destroy
-        run : |
-            terraform destroy -auto-approve -var='NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}' -var='NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}'    
+        if: github.event.inputs.variable == 'destroy'
+        run : terraform destroy -auto-approve -var='NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}' -var='NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}'    
 
             
 
