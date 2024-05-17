@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
      variable:
-    region:
+     region:
         description: "Enter your region : "
         required: true  
         type: string   
