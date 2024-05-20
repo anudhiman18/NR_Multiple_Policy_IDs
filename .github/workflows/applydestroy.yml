@@ -49,7 +49,7 @@ jobs:
 
       - name: Terraform Apply and Destroy
         # run: terraform ${{ github.event.inputs.action }} 
-        run: terraform ${{ github.event.inputs.action }} -var="NEWRELIC_ACCOUNT_ID=${{ secrets.NEWRELIC_ACCOUNT_ID }}" -var="NEWRELIC_API_KEY=${{ secrets.NEWRELIC_API_KEY }}" -auto-approve
+        run: terraform ${{ github.event.inputs.action }} -var='NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}' -var='NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}' -auto-approve
       
       # - name: Terraform Apply 
       #   if: github.event.inputs.variable == 'apply'
