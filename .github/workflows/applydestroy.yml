@@ -3,12 +3,15 @@ name: Terraform New Relic Deployment
 on:
   workflow_dispatch:
     inputs:
-     variable:
-     region:
-        description: "Enter your region : "
-        required: true  
-        type: string   
-  
+     type: choice
+     options:
+         -apply
+         -destroy
+     region: 
+     description: "Enter your region : "
+     required: true  
+  type: string  
+      
 env:
  BUCKET: astoragebucketnu
  TFSTATE_FILE: anudhiman.tfstate
@@ -18,9 +21,10 @@ env:
 
  
 jobs:
-  terraform:
-    runs-on: ubuntu-latest
-    steps:
+  terraform-apply-destroy:
+   name: terraform ${{ github.event.inputs.action }}
+   runs-on: ubuntu-latest
+   steps:
       - name: Checkout repository
         uses: actions/checkout@v2
  
@@ -42,14 +46,17 @@ jobs:
       - name: Terraform Plan
         run: |
            terraform plan -var='NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}' -var='NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}'
- 
-      - name: Terraform Apply 
-        if: github.event.inputs.variable == 'apply'
-        run : terraform apply -auto-approve -var="NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}" 
+
+      - name: Terraform Apply and Destroy
+        # run: terraform ${{ github.event.inputs.action }} 
+        run: terraform ${{ github.event.inputs.action }} -var="NEWRELIC_ACCOUNT_ID=${{ secrets.NEWRELIC_ACCOUNT_ID }}" -var="NEWRELIC_API_KEY=${{ secrets.NEWRELIC_API_KEY }}" -auto-approve
       
-      - name: Terraform Destroy
-        if: github.event.inputs.variable == 'destroy'
-        run : terraform destroy -auto-approve -var='NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}' -var='NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}'    
+      # - name: Terraform Apply 
+      #   if: github.event.inputs.variable == 'apply'
+      #   run : terraform apply -auto-approve -var="NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}" -var="NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}" 
+      
+      # - name: Terraform Destroy
+      #   if: github.event.inputs.variable == 'destroy'
+      #   run : terraform destroy -auto-approve -var='NEW_RELIC_API_KEY=${{ secrets.NEW_RELIC_API_KEY }}' -var='NEW_RELIC_ACCOUNT_ID=${{ secrets.NEW_RELIC_ACCOUNT_ID }}'    
 
-            
-
+           
